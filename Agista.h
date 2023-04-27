@@ -1,8 +1,9 @@
 #ifndef Agista_h
 #define Agista_h
 
-address createBinaryTree(int data)
-void deleteTree(address node)
+address createBinaryTree(int data);
+void deleteTree(address node);
+int max(int a, int b);
 
 #endif
 
@@ -29,4 +30,10 @@ void deleteTree(address node) {
     free(node); // hapus node
 }
 
-
+int max(int a, int b) {
+    if (a > b) {
+        return a;
+    } else {
+        return b;
+    }
+}
