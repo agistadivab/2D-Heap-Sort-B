@@ -1,8 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "Syira.h"
-#include "Agista.h"
-#include "Afyar.h"
+#include "HeadList.h"
+#include "HeadTree.h"
 
 
 int main(){
