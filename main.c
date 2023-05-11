@@ -6,11 +6,14 @@
 
 int main(){
 	int y;
+	awal :
+	system("cls");
 	printf("1. SORT TREEE\n2. TRANVERSAL\n");
 	printf("Masukan Pilihan: ");
 	scanf("%d", &y);
 	switch(y){
 		case 1 :
+			//system("cls");
 			inputan();
 			 //melakukan heap sort
     		maxHeapSort();
@@ -22,7 +25,8 @@ int main(){
 		    printf("tampilan DESCENDING\n");
 		    DESC();
 		    printf("\n");
-		    break;
+		    system("pause");
+		    goto awal;
 		case 2 :
 			inputan();
 			printf("PreOrder:\n");
@@ -34,6 +38,8 @@ int main(){
 			printf("PostOrder:\n");
 			PostOrder(root);
 			printf("\n");
+			system("pause");
+		    goto awal;
 		case 3 :
 			return;
 	}
