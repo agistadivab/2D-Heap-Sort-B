@@ -11,24 +11,36 @@ address createNode(infotype data) {
     return newNode;
 }
 
+
+void treeprint(address root, int level)
+{
+		int i;
+        if (root == NULL)
+                return;
+        for (i = 0; i < level; i++)
+                printf(i == level - 1 ? "|-" : "  ");
+        printf("%d\n", root->info);
+        treeprint(root->leftson, level + 1);
+        treeprint(root->rightson, level + 1);
+}
+
 address buildTreeFromArray(infotype arr[], int start, int end) {
     if (start > end) {
         return NULL;
     }
-    
+
     int mid = (start + end) / 2;
     address root = createNode(arr[mid]);
     
     root->leftson = buildTreeFromArray(arr, start, mid - 1);
-    if (root->leftson != NULL) {
-        root->leftson->prnt = root;
-    }
+	if (root->leftson != NULL) {
+		root->leftson->prnt = root;
+	}
     
     root->rightson = buildTreeFromArray(arr, mid + 1, end);
     if (root->rightson != NULL) {
         root->rightson->prnt = root;
     }
-    
     return root;
 }
 
@@ -75,6 +87,7 @@ int max(int a, int b) {
     } else {
         return b;
     }
+    	
 }
 
 int height(address root)

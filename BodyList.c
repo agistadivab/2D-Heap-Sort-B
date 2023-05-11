@@ -16,13 +16,9 @@ void InsertLast(infotype item){
 			Last = X;
 		}
 		else{
-			Y = First;
-			while(Y->next != NULL){
-			Y = Y->next;
-			}
-			Last->next = X;
-			X->prev = Last;
-			Last = X;
+			X->next = First;
+			First->prev = X;
+			First = X;
 		}	
 	}
 }
