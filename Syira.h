@@ -1,6 +1,44 @@
+#ifndef Syira_h
+#define Syira_h
 #include <stdio.h>
-#include <stdlib.h>	
-#include "HeadTree.h"
+#include <stdlib.h>
+
+
+//-----------------------------------------------------------------------------------
+
+// NAMA : Syira Khoerunisa
+// NIM : 221511064
+// KELAS : D3-1B
+
+//-----------------------------------------------------------------------------------
+
+
+//struct tree------------------------------------------------------------------------
+
+typedef int infotype;
+typedef struct tree *address;
+typedef struct tree {
+	infotype info;
+	address prnt;
+	address rightson;
+	address leftson;
+} tree1;
+
+address root;
+address NewNode;
+address lastNode, parentOfLastNode;
+
+//struct linked list-----------------------------------------------------------------
+
+typedef struct list *pointer;
+typedef struct list {
+	infotype info;
+	pointer next;
+	pointer prev;
+} ls;
+
+pointer First;
+pointer Last;
 
 address createNode(infotype data) {
     address newNode = (address) malloc(sizeof(tree1));
@@ -11,18 +49,25 @@ address createNode(infotype data) {
     return newNode;
 }
 
+// header------------------------------------------------------------------------------------------
 
-void treeprint(address root, int level)
-{
-		int i;
-        if (root == NULL)
-                return;
-        for (i = 0; i < level; i++)
-                printf(i == level - 1 ? "|-" : "  ");
-        printf("%d\n", root->info);
-        treeprint(root->leftson, level + 1);
-        treeprint(root->rightson, level + 1);
-}
+address createNode(infotype data);
+address buildTreeFromArray(infotype arr[], int start, int end);
+void heapify(address node);
+void BuildMaxHeap(address node);
+int height(address root);
+address LastNodeDanParent(address root, int level, address parent);
+address FindLastNode(address root);
+void InsertLast(infotype item);
+void maxHeapSort();
+void ASC();
+void DESC();
+void inputan();
+
+// header--------------------------------------------------------------------------------------------
+
+
+// MODUL buildTreeFromArray
 
 address buildTreeFromArray(infotype arr[], int start, int end) {
     if (start > end) {
@@ -33,33 +78,19 @@ address buildTreeFromArray(infotype arr[], int start, int end) {
     address root = createNode(arr[mid]);
     
     root->leftson = buildTreeFromArray(arr, start, mid - 1);
-
-  if (root->leftson != NULL) {
-
     if (root->leftson != NULL) {
-
         root->leftson->prnt = root;
     }
     
     root->rightson = buildTreeFromArray(arr, mid + 1, end);
-
-	    if (root->rightson != NULL) {
-        root->rightson->prnt = root;
-   }	
-
     if (root->rightson != NULL) {
         root->rightson->prnt = root;
     }
-
     
     return root;
 }
 
-void swapNodes(address node1, address node2) {
-    infotype temp = node1->info;
-    node1->info = node2->info;
-    node2->info = temp;
-}
+// MODUL heapify
 
 void heapify(address node)
 {
@@ -78,6 +109,7 @@ void heapify(address node)
     }
 }
 
+//MODUL BuildMaxHeap
 
 void BuildMaxHeap(address node){
 	if (root == NULL){
@@ -92,14 +124,7 @@ void BuildMaxHeap(address node){
 	
 }
 
-int max(int a, int b) {
-    if (a > b) {
-        return a;
-    } else {
-        return b;
-    }
-    	
-}
+// MODUL height
 
 int height(address root)
 {
@@ -111,6 +136,8 @@ int height(address root)
 
     return max(left, right);
 }
+
+// MODUL LastNodeDanParent
 
 address LastNodeDanParent(address root, int level, address parent)
 {
@@ -128,6 +155,8 @@ address LastNodeDanParent(address root, int level, address parent)
     return temp;
 }
 
+// MODUL FindLastNode
+
 address FindLastNode(address root)
 {
     address temp;
@@ -144,6 +173,35 @@ address FindLastNode(address root)
 
     return root;
 }
+
+// MODUL InsertLast
+
+void InsertLast(infotype item){
+	pointer X,Y;
+	X = (pointer) malloc (sizeof (ls));
+	if(X == NULL){
+		printf("alokasi gagal");
+	}else{
+	X->info = item;
+	X->next = NULL;
+	X->prev = NULL;
+		if(First == NULL && Last == NULL){
+			First = X;
+			Last = X;
+		}
+		else{
+			Y = First;
+			while(Y->next != NULL){
+			Y = Y->next;
+			}
+			Last->next = X;
+			X->prev = Last;
+			Last = X;
+		}	
+	}
+}
+
+// MODUL maxHeapSort
 
 void maxHeapSort() {
 	infotype maxVal;
@@ -171,6 +229,40 @@ void maxHeapSort() {
     }
 }
 
+// MODUL ASC
+
+void ASC(){
+	pointer Y;
+	if (First == NULL){
+		printf("List Kosong");
+		return;
+	}
+	Y = First;
+	while (Y->next != NULL){
+		printf("%d ",Y->info);
+		Y = Y->next;
+	}
+	printf("%d ",Y->info);
+}
+
+// MODUL DESC
+
+void DESC(){
+	pointer Y;
+	if (First == NULL){
+	printf("List Kosong");
+	return;
+	}
+	Y = Last;
+	while (Y->prev != NULL){
+		printf("%d ",Y->info);
+		Y = Y->prev;
+	}
+	printf("%d ",Y->info);
+}
+
+// MODUL INPUTAN
+
 void inputan(){
 	int n,i;
 	printf("masukan jumlah indeks: ");
@@ -186,37 +278,13 @@ void inputan(){
     root = buildTreeFromArray(arr, 0, n - 1);
 }
 
-void PreOrder(address node){
-	if (root == NULL){
-		printf("silahkan membuat tree/root terlebih dahulu");
-	}
-	
-	if(node != NULL){
-		printf("%d ",node->info);
-		PreOrder(node->leftson);
-		PreOrder(node->rightson);
-	}
-	
-}
+#endif
 
-void InOrder(address node){
-	if (root == NULL){
-		printf("silahkan membuat tree/root terlebih dahulu");
-	}
-	if(node != NULL){
-		InOrder(node->leftson);
-		printf("%d ",node->info);
-		InOrder(node->rightson);
-	}
-}
 
-void PostOrder(address node){
-	if (root == NULL){
-		printf("silahkan membuat tree/root terlebih dahulu");
-	}
-	if(node != NULL){
-		PostOrder(node->leftson);
-		PostOrder(node->rightson);
-		printf("%d ",node->info);
-	}
-}
+
+
+
+
+
+
+

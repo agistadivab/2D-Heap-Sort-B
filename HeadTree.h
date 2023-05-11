@@ -13,6 +13,9 @@ typedef struct tree {
 address root;
 address NewNode;
 address lastNode, parentOfLastNode;
+
+
+int max(int a, int b);
 address createNode(infotype data);
 address buildTreeFromArray(infotype arr[], int start, int end);
 void swapNodes(address node1, address node2);
@@ -28,7 +31,6 @@ void PreOrder(address node);
 void InOrder(address node);
 void PostOrder(address node);
 void treeprint(address root, int level);
-
 void inputan();
 void deleteTree(address node);
 
