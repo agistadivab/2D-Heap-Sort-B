@@ -5,7 +5,7 @@
 #include "HeadTampilan.h"
 
 int main() {
-	int choice,level;
+	int choice,level,rootData;
     tampilan();
     system("pause");
     awal :
@@ -33,16 +33,24 @@ int main() {
         }
         case 2:{
         	system("cls");
-        	inputan(); 
         	printf("\n====== Binary Tree ======\n");
-			treeprint(root, level);
-            tampilTrvsl();
+			printf("\n");
+			printf("--child yang pertama di masukkan adalah anak kiri, jika sudah ada anak kiri maka akan di masukkan ke anak kanan--");
+			printf("\n");
+			printf("\n");
+    		printf("Masukkan nilai root: ");
+    		scanf("%d", &rootData);
+
+    		address treeRoot = createNode(rootData);
+    		buildTree(treeRoot);
+			
+			printf("\n");
             printf("\nPRE-ORDER:\n");
-			PreOrder(root);
+			PreOrder(treeRoot);
             printf("\nIN-ORDER:\n");
-            InOrder(root);
+            InOrder(treeRoot);
             printf("\nPOST-ORDER:\n");
-            PostOrder(root);
+            PostOrder(treeRoot);
     		printf("\n\n");
     		printf("tekan enter untuk ke menu utama");
     		printf("\n\n");

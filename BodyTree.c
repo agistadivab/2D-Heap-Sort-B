@@ -11,18 +11,78 @@ address createNode(infotype data) {
     return newNode;
 }
 
-
-void treeprint(address root, int level)
-{
-		int i;
-        if (root == NULL)
-                return;
-        for (i = 0; i < level; i++)
-                printf(i == level - 1 ? "|-" : "  ");
-        printf("%d\n", root->info);
-        treeprint(root->leftson, level + 1);
-        treeprint(root->rightson, level + 1);
+address searchNode(address node, infotype target) {
+    if (node == NULL || node->info == target) {
+        return node;
+    }
+  
+    address foundNode = searchNode(node->leftson, target);
+    if (foundNode != NULL) {
+        return foundNode;
+    }
+  
+    return searchNode(node->rightson, target);
 }
+
+void addChild(address parent) {
+    infotype data;
+    printf("Masukkan child (0 untuk berhenti): ");
+    scanf("%d", &data);
+    
+    if (data != 0) {
+        printf("Masukkan parent: ");
+        infotype parentData;
+        scanf("%d", &parentData);
+        
+        address search = searchNode(parent, parentData);
+        
+        if (search == NULL) {
+            printf("Parent tidak ditemukan!\n");
+            addChild(parent);
+            return;
+        }
+        
+        address child = createNode(data);
+        child->prnt = search;
+        
+        if (search->leftson == NULL) {
+            search->leftson = child;
+        } else if (search->rightson == NULL) {
+            search->rightson = child;
+        } else {
+            printf("Simpul sudah memiliki dua anak!\n");
+            return;
+        }
+        
+//        addChild(child);   
+        addChild(parent);  // Lanjutkan menambahkan child pada parent yang sama
+    }
+}
+
+
+
+void buildTree(address root) {
+    addChild(root);
+}
+
+void treeprint(address node, int level)
+{
+	int i;
+
+    if (node == NULL) {
+        return;
+    }
+
+    treeprint(node->rightson, level + 1);
+
+    for (i = 0; i < level; i++) {
+        printf("   ");
+    }
+    printf("%d\n", node->info);
+
+    treeprint(node->leftson, level + 1);
+}
+
 
 address buildTreeFromArray(infotype arr[], int start, int end) {
     if (start > end) {
@@ -176,8 +236,8 @@ void inputan(){
 }
 
 void PreOrder(address node){
-	if (root == NULL){
-		printf("silahkan membuat tree/root terlebih dahulu");
+	if (node == NULL){
+		return;
 	}
 	
 	if(node != NULL){
@@ -189,8 +249,8 @@ void PreOrder(address node){
 }
 
 void InOrder(address node){
-	if (root == NULL){
-		printf("silahkan membuat tree/root terlebih dahulu");
+	if (node == NULL){
+		return;
 	}
 	if(node != NULL){
 		InOrder(node->leftson);
@@ -200,8 +260,8 @@ void InOrder(address node){
 }
 
 void PostOrder(address node){
-	if (root == NULL){
-		printf("silahkan membuat tree/root terlebih dahulu");
+	if (node == NULL){
+		return;
 	}
 	if(node != NULL){
 		PostOrder(node->leftson);

@@ -26,6 +26,9 @@ int height(address root);
 address LastNodeDanParent(address root, int level, address parent);
 address FindLastNode(address root); 
 void maxHeapSort();
+address searchNode(address node, infotype target);
+void addChild(address parent);
+void buildTree(address root);
 
 void PreOrder(address node);
 void InOrder(address node);
