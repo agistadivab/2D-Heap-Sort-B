@@ -16,8 +16,13 @@ int main() {
     switch(choice) {
         case 1:{
     		system("cls");
-    		inputan();
-			printf("\n\n");
+			printf("Masukkan nilai root: ");
+    		scanf("%d", &rootData);
+
+    		root = createNode(rootData);
+    		buildTree(root);
+			
+			printf("\n");
     		maxHeapSort();
     		tampilSort();
     		printf("\nTampilan ASCENDING:\n");
@@ -41,16 +46,16 @@ int main() {
     		printf("Masukkan nilai root: ");
     		scanf("%d", &rootData);
 
-    		address treeRoot = createNode(rootData);
-    		buildTree(treeRoot);
+    		root = createNode(rootData);
+    		buildTree(root);
 			
 			printf("\n");
             printf("\nPRE-ORDER:\n");
-			PreOrder(treeRoot);
+			PreOrder(root);
             printf("\nIN-ORDER:\n");
-            InOrder(treeRoot);
+            InOrder(root);
             printf("\nPOST-ORDER:\n");
-            PostOrder(treeRoot);
+            PostOrder(root);
     		printf("\n\n");
     		printf("tekan enter untuk ke menu utama");
     		printf("\n\n");

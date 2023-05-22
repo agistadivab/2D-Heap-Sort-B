@@ -49,19 +49,17 @@ void addChild(address parent) {
             search->leftson = child;
         } else if (search->rightson == NULL) {
             search->rightson = child;
-        } else {
-            printf("Simpul sudah memiliki dua anak!\n");
+        } else if (search->leftson != NULL && search->rightson != NULL){
+            printf("parent sudah memiliki dua anak!\n");
             return;
-        }
-        
-//        addChild(child);   
+        }  
         addChild(parent);  // Lanjutkan menambahkan child pada parent yang sama
     }
 }
 
 
 
-void buildTree(address root) {
+void buildTree(address node) {
     addChild(root);
 }
 
